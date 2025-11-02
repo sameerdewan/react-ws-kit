@@ -1,6 +1,6 @@
 {
   "name": "react-ws-kit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Production-quality typed WebSocket hook for React with intelligent connection sharing, auto-reconnect, and message queuing",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
