@@ -18,7 +18,7 @@ A complete TypeScript monorepo demonstrating a production-quality typed WebSocke
 ```
 realtime-control-center/
 ├── packages/
-│   └── react-websocket-kit/    # The core WebSocket hook library
+│   └── react-ws-kit/    # The core WebSocket hook library
 ├── apps/
 │   ├── server/                  # Express + ws backend with demo endpoints
 │   └── web/                     # Vite + React demo application
@@ -72,7 +72,7 @@ The server provides three WebSocket endpoints:
 ## Usage Example
 
 ```typescript
-import { useSocket } from 'react-websocket-kit'
+import { useSocket } from 'react-ws-kit'
 
 type ChatMessage = {
   type: 'chat'
@@ -159,9 +159,9 @@ The `killSocketForAllSubscribers()` function:
 - View all active sockets with refCounts, statuses, and queue lengths
 - Use per-socket controls to kill or clear queues
 
-## Library: react-websocket-kit
+## Library: react-ws-kit
 
-See `packages/react-websocket-kit/README.md` for detailed API documentation.
+See `packages/react-ws-kit/README.md` for detailed API documentation.
 
 ## License
 
