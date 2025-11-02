@@ -1,7 +1,7 @@
 {
   "name": "react-websocket-kit",
   "version": "1.0.0",
-  "description": "Typed, shared WebSocket hook for React",
+  "description": "Production-quality typed WebSocket hook for React with intelligent connection sharing, auto-reconnect, and message queuing",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -12,11 +12,26 @@
       "require": "./dist/index.js"
     }
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
+    "prepublishOnly": "npm run build && npm test",
     "test": "vitest run",
     "test:watch": "vitest"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/react-websocket-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/react-websocket-kit/issues"
+  },
+  "homepage": "https://github.com/yourusername/react-websocket-kit#readme",
+  "author": "Your Name <your.email@example.com>",
   "peerDependencies": {
     "react": "^18.0.0"
   },
@@ -35,8 +50,19 @@
     "websocket",
     "hook",
     "typescript",
-    "realtime"
+    "realtime",
+    "ws",
+    "connection-sharing",
+    "auto-reconnect",
+    "message-queue",
+    "typed-websocket",
+    "react-hook",
+    "websocket-client"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }
 

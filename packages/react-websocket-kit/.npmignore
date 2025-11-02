@@ -1,0 +1,33 @@
+# Source files
+src/
+test/
+
+# Config files
+tsconfig.json
+vitest.config.ts
+.gitignore
+
+# Development files
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+
+# Build artifacts (except dist/)
+node_modules/
+coverage/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
