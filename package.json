@@ -1,0 +1,21 @@
+{
+  "name": "realtime-control-center",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Typed WebSocket hook system with React frontend and Express backend",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:web\"",
+    "dev:server": "npm run dev --workspace=apps/server",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "build": "npm run build --workspace=packages/react-websocket-kit && npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
+
