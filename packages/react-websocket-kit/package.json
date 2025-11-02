@@ -33,7 +33,7 @@
   "homepage": "https://github.com/sameerdewan/react-ws-kit#readme",
   "author": "Sameer Dewan <dewansameer@protonmail.com>",
   "peerDependencies": {
-    "react": "^18.0.0"
+    "react": ">=16.8.0"
   },
   "devDependencies": {
     "@testing-library/react": "^14.1.2",
