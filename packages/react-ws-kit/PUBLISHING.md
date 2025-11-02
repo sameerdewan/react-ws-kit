@@ -1,29 +1,29 @@
-# Publishing react-websocket-kit to npm
+# Publishing react-ws-kit to npm
 
-This guide explains how to publish the `react-websocket-kit` package to npm.
+This guide explains how to publish the `react-ws-kit` package to npm.
 
 ## Prerequisites
 
 1. **npm Account**: Create an account at [npmjs.com](https://www.npmjs.com/)
 2. **npm CLI Login**: Run `npm login` and enter your credentials
-3. **Package Name Available**: Check if the name is available with `npm search react-websocket-kit`
+3. **Package Name Available**: Check if the name is available with `npm search react-ws-kit`
 
 ## Before Publishing
 
 ### 1. Update Package Metadata
 
-Edit `packages/react-websocket-kit/package.json`:
+Edit `packages/react-ws-kit/package.json`:
 
 ```json
 {
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_USERNAME/react-websocket-kit.git"
+    "url": "https://github.com/YOUR_USERNAME/react-ws-kit.git"
   },
   "bugs": {
-    "url": "https://github.com/YOUR_USERNAME/react-websocket-kit/issues"
+    "url": "https://github.com/YOUR_USERNAME/react-ws-kit/issues"
   },
-  "homepage": "https://github.com/YOUR_USERNAME/react-websocket-kit#readme",
+  "homepage": "https://github.com/YOUR_USERNAME/react-ws-kit#readme",
   "author": "Your Name <your.email@example.com>"
 }
 ```
@@ -31,7 +31,7 @@ Edit `packages/react-websocket-kit/package.json`:
 ### 2. Build the Package
 
 ```bash
-cd packages/react-websocket-kit
+cd packages/react-ws-kit
 npm run build
 ```
 
@@ -65,7 +65,7 @@ This shows what will be included in the published package. Should include:
 ### First Time Publishing
 
 ```bash
-cd packages/react-websocket-kit
+cd packages/react-ws-kit
 
 # Login to npm (if not already logged in)
 npm login
@@ -118,14 +118,14 @@ npm publish --tag beta
 
 ## After Publishing
 
-1. **Verify on npm**: Visit https://www.npmjs.com/package/react-websocket-kit
+1. **Verify on npm**: Visit https://www.npmjs.com/package/react-ws-kit
 
 2. **Test installation**:
    ```bash
    mkdir test-install
    cd test-install
    npm init -y
-   npm install react-websocket-kit react
+   npm install react-ws-kit react
    ```
 
 3. **Create GitHub Release**: Go to your repository and create a release from the tag
@@ -136,7 +136,7 @@ If you want to publish under your npm username or organization:
 
 ```bash
 # Update package.json name
-"name": "@yourusername/react-websocket-kit"
+"name": "@yourusername/react-ws-kit"
 
 # Publish as scoped package
 npm publish --access public
@@ -146,10 +146,10 @@ npm publish --access public
 
 ```bash
 # Unpublish specific version (within 72 hours)
-npm unpublish react-websocket-kit@1.0.0
+npm unpublish react-ws-kit@1.0.0
 
 # Deprecate instead (preferred)
-npm deprecate react-websocket-kit@1.0.0 "This version has bugs, please upgrade"
+npm deprecate react-ws-kit@1.0.0 "This version has bugs, please upgrade"
 ```
 
 ## Best Practices
@@ -165,7 +165,7 @@ npm deprecate react-websocket-kit@1.0.0 "This version has bugs, please upgrade"
 ## Troubleshooting
 
 ### "Package name already exists"
-- Choose a different name or use a scoped package (@yourname/react-websocket-kit)
+- Choose a different name or use a scoped package (@yourname/react-ws-kit)
 
 ### "You need to be logged in"
 - Run `npm login` and enter your credentials
@@ -184,17 +184,17 @@ npm deprecate react-websocket-kit@1.0.0 "This version has bugs, please upgrade"
 After publishing, users can install with:
 
 ```bash
-npm install react-websocket-kit
+npm install react-ws-kit
 # or
-yarn add react-websocket-kit
+yarn add react-ws-kit
 # or
-pnpm add react-websocket-kit
+pnpm add react-ws-kit
 ```
 
 And use in their projects:
 
 ```typescript
-import { useSocket } from 'react-websocket-kit'
+import { useSocket } from 'react-ws-kit'
 
 const { connect, send, status } = useSocket('ws://localhost:3001/chat')
 ```
@@ -220,9 +220,9 @@ jobs:
           node-version: '18'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
-      - run: cd packages/react-websocket-kit && npm run build
-      - run: cd packages/react-websocket-kit && npm test
-      - run: cd packages/react-websocket-kit && npm publish
+      - run: cd packages/react-ws-kit && npm run build
+      - run: cd packages/react-ws-kit && npm test
+      - run: cd packages/react-ws-kit && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 ```

@@ -1,5 +1,5 @@
 /**
- * react-websocket-kit
+ * react-ws-kit
  * 
  * A typed, shared WebSocket hook system for React
  */

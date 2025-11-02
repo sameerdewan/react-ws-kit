@@ -1,8 +1,8 @@
-# react-websocket-kit - NPM Package Preparation Summary
+# react-ws-kit - NPM Package Preparation Summary
 
 ## ✅ Package is Ready for Publication
 
-The `react-websocket-kit` package has been prepared for npm publication with all necessary files and configurations.
+The `react-ws-kit` package has been prepared for npm publication with all necessary files and configurations.
 
 ### Package Contents (7.3 KB compressed, 37.9 KB unpacked)
 
@@ -19,7 +19,7 @@ The `react-websocket-kit` package has been prepared for npm publication with all
 
 ### Package Metadata
 
-- **Name**: `react-websocket-kit`
+- **Name**: `react-ws-kit`
 - **Version**: `1.0.0`
 - **License**: MIT
 - **Bundle Formats**: CommonJS + ESM
@@ -70,7 +70,7 @@ Added:
    ```json
    "author": "Your Name <your.email@example.com>",
    "repository": {
-     "url": "https://github.com/YOUR_USERNAME/react-websocket-kit.git"
+     "url": "https://github.com/YOUR_USERNAME/react-ws-kit.git"
    }
    ```
 
@@ -81,14 +81,14 @@ Added:
 
 3. **Verify package**:
    ```bash
-   cd packages/react-websocket-kit
+   cd packages/react-ws-kit
    npm pack --dry-run
    ```
 
 ### Publish
 
 ```bash
-cd packages/react-websocket-kit
+cd packages/react-ws-kit
 npm publish --access public
 ```
 
@@ -96,12 +96,12 @@ npm publish --access public
 
 Users can install with:
 ```bash
-npm install react-websocket-kit
+npm install react-ws-kit
 ```
 
 And use it:
 ```typescript
-import { useSocket } from 'react-websocket-kit'
+import { useSocket } from 'react-ws-kit'
 
 const { connect, send, status, lastReturnedData } = useSocket<MessageIn, MessageOut>(
   'ws://localhost:3001/chat',
@@ -115,11 +115,11 @@ const { connect, send, status, lastReturnedData } = useSocket<MessageIn, Message
 
 ## Alternative: Scoped Package
 
-If `react-websocket-kit` is taken, publish as a scoped package:
+If `react-ws-kit` is taken, publish as a scoped package:
 
 1. Update name in `package.json`:
    ```json
-   "name": "@yourusername/react-websocket-kit"
+   "name": "@yourusername/react-ws-kit"
    ```
 
 2. Publish:
@@ -129,7 +129,7 @@ If `react-websocket-kit` is taken, publish as a scoped package:
 
 3. Install:
    ```bash
-   npm install @yourusername/react-websocket-kit
+   npm install @yourusername/react-ws-kit
    ```
 
 ## Next Steps
@@ -140,14 +140,14 @@ If `react-websocket-kit` is taken, publish as a scoped package:
 4. ⬜ Publish: `npm publish --access public`
 5. ⬜ Create GitHub release with tag `v1.0.0`
 6. ⬜ Announce on social media / forums
-7. ⬜ Submit to https://www.npmjs.com/package/react-websocket-kit
+7. ⬜ Submit to https://www.npmjs.com/package/react-ws-kit
 8. ⬜ Add npm badge to README
 
 ## Package URLs (After Publishing)
 
-- npm: https://www.npmjs.com/package/react-websocket-kit
-- Unpkg CDN: https://unpkg.com/react-websocket-kit
-- jsDelivr: https://cdn.jsdelivr.net/npm/react-websocket-kit
+- npm: https://www.npmjs.com/package/react-ws-kit
+- Unpkg CDN: https://unpkg.com/react-ws-kit
+- jsDelivr: https://cdn.jsdelivr.net/npm/react-ws-kit
 
 ## Support
 
