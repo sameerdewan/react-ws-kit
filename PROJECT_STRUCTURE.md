@@ -7,7 +7,7 @@ realtime-control-center/
 ├── .gitignore                            # Git ignore rules
 │
 ├── packages/
-│   └── react-websocket-kit/              # 📦 Core WebSocket Hook Library
+│   └── react-ws-kit/              # 📦 Core WebSocket Hook Library
 │       ├── package.json
 │       ├── tsconfig.json
 │       ├── vitest.config.ts
@@ -58,7 +58,7 @@ realtime-control-center/
 
 ## ✅ Implementation Checklist
 
-### Core Library (react-websocket-kit)
+### Core Library (react-ws-kit)
 - ✅ TypeScript generics `useSocket<TIn, TOut>`
 - ✅ Singleton store for socket sharing
 - ✅ Connection sharing based on URL + normalized options
