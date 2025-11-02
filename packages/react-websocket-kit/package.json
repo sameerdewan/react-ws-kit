@@ -25,13 +25,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/react-websocket-kit.git"
+    "url": "https://github.com/sameerdewan/react-ws-kit.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/react-websocket-kit/issues"
+    "url": "https://github.com/sameerdewan/react-ws-kit/issues"
   },
-  "homepage": "https://github.com/yourusername/react-websocket-kit#readme",
-  "author": "Your Name <your.email@example.com>",
+  "homepage": "https://github.com/sameerdewan/react-ws-kit#readme",
+  "author": "Sameer Dewan <sameer@sameerdewan.com>",
   "peerDependencies": {
     "react": "^18.0.0"
   },
