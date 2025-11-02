@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2025-11-02
 
 ### Added
-- Initial release of react-websocket-kit
+- Initial release of react-ws-kit
 - `useSocket<TIn, TOut>` hook with full TypeScript generic support
 - Intelligent connection sharing across components with matching configurations
 - Per-hook state isolation (status, lastReturnedData, allData)
@@ -31,5 +31,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Status Sync**: Real-time status updates for all subscribers
 - **Zero Dependencies**: Only peer dependency is React 18+
 
-[1.0.0]: https://github.com/yourusername/react-websocket-kit/releases/tag/v1.0.0
+[1.0.0]: https://github.com/yourusername/react-ws-kit/releases/tag/v1.0.0
 
