@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useSocket } from 'react-websocket-kit'
+import { useSocket } from 'react-ws-kit'
 import type { ChatMessageIn, ChatMessageOut } from '../types'
 
 const WS_URL = 'ws://localhost:3001/chat'

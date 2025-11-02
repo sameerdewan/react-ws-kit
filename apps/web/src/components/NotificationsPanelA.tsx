@@ -1,4 +1,4 @@
-import { useSocket } from 'react-websocket-kit'
+import { useSocket } from 'react-ws-kit'
 import type { NotificationIn } from '../types'
 
 const WS_URL = 'ws://localhost:3001/notifications'

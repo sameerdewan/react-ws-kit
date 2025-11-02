@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { getSocketStore } from 'react-websocket-kit'
-import type { SocketInfo } from 'react-websocket-kit'
+import { getSocketStore } from 'react-ws-kit'
+import type { SocketInfo } from 'react-ws-kit'
 
 export default function SocketDashboard() {
   const [sockets, setSockets] = useState<SocketInfo[]>([])

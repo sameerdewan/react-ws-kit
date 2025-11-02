@@ -1,4 +1,4 @@
-import { useSocket } from 'react-websocket-kit'
+import { useSocket } from 'react-ws-kit'
 import type { PriceTickIn } from '../types'
 
 interface PriceWidgetProps {

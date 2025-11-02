@@ -1,4 +1,4 @@
-# react-websocket-kit
+# react-ws-kit
 
 A production-quality, typed WebSocket hook for React with intelligent connection sharing, message queuing, and comprehensive reconnection handling.
 
@@ -15,13 +15,13 @@ A production-quality, typed WebSocket hook for React with intelligent connection
 ## Installation
 
 ```bash
-npm install react-websocket-kit
+npm install react-ws-kit
 ```
 
 ## Basic Usage
 
 ```typescript
-import { useSocket } from 'react-websocket-kit'
+import { useSocket } from 'react-ws-kit'
 
 function ChatComponent() {
   const { connect, disconnect, send, status, lastReturnedData, allData } = 
