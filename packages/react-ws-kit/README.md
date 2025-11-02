@@ -10,7 +10,7 @@ A production-quality, typed WebSocket hook for React with intelligent connection
 - **Message Queuing**: Optional FIFO queue for offline message buffering
 - **Auto-Reconnect**: Configurable linear backoff strategy
 - **Kill Switch**: Programmatically close connections for all subscribers
-- **Zero Dependencies**: Only peer dependency is React 18+
+- **Zero Dependencies**: Only peer dependency is React 16.8+ (hooks support)
 
 ## Installation
 
