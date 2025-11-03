@@ -1,4 +1,16 @@
-# Realtime Control Center
+# react-ws-kit
+
+📦 **[View the full package documentation →](./packages/react-ws-kit/README.md)**
+
+Production-quality typed WebSocket hook for React with intelligent connection sharing, auto-reconnect, and message queuing.
+
+```bash
+npm install react-ws-kit
+```
+
+---
+
+# Demo App for Package: Realtime Control Center
 
 A complete TypeScript monorepo demonstrating a production-quality typed WebSocket hook system with React and Express.
 
