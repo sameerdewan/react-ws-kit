@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2025-11-03
+
+### Added
+- Comprehensive test suite with 36 unit tests
+- Test coverage for error handling paths
+- Test coverage for store integration
+- Test coverage for edge cases (rapid connect/disconnect, message fan-out, etc.)
+- Coverage reports via `@vitest/coverage-v8`
+
+### Improved
+- Test coverage increased to 87.14% (from 79.22%)
+- Store test coverage increased to 89.15% (from 71.08%)
+- useSocket test coverage increased to 88.63% (from 81.06%)
+- Branch coverage increased to 89.71% (from 85.86%)
+- Function coverage increased to 76% (from 65.21%)
+
+### Fixed
+- Test reliability improvements with proper async handling
+- Better test isolation with cleanup between tests
+
 ## [1.0.0] - 2025-11-02
 
 ### Added
@@ -29,7 +49,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Message Queue**: FIFO queue with configurable size and overflow handling
 - **Kill Switch**: Coordinated disconnection across all subscribers
 - **Status Sync**: Real-time status updates for all subscribers
-- **Zero Dependencies**: Only peer dependency is React 18+
+- **Zero Dependencies**: Only peer dependency is React 16.8+
 
-[1.0.0]: https://github.com/yourusername/react-ws-kit/releases/tag/v1.0.0
+[1.0.2]: https://github.com/sameerdewan/react-ws-kit/compare/v1.0.0...v1.0.2
+[1.0.0]: https://github.com/sameerdewan/react-ws-kit/releases/tag/v1.0.0
 
