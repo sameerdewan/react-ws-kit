@@ -74,7 +74,7 @@ function startHeartbeat<TIn, TOut>(instance: SocketInstance<TIn, TOut>) {
 
     try {
       // Generate ping message
-      const ping = typeof pingMessage === 'function' ? pingMessage() : pingMessage
+      const ping = (typeof pingMessage === 'function' ? (pingMessage as () => TOut)() : pingMessage) as TOut
       const serialized = instance.config.serialize(ping)
       instance.socket.send(serialized)
 

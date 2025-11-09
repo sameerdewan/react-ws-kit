@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-11-09
+
+### Added
+- **Heartbeat/Ping Feature**: Built-in connection health monitoring with automatic ping/pong
+  - Configurable ping interval and pong timeout
+  - Custom ping messages (static or dynamic via function)
+  - Custom pong detection logic
+  - Automatic reconnection on heartbeat failure (configurable)
+  - Pong messages filtered from user subscribers
+  - Proper cleanup on disconnect, unmount, and kill switch
+  - Full TypeScript support with `HeartbeatOptions` interface
+- New `heartbeat` configuration option in `Options` interface
+- Extended `SocketInstance` interface with heartbeat state tracking
+- Comprehensive documentation in README with usage examples
+
+### Improved
+- Better connection reliability with health monitoring
+- Enhanced type safety with heartbeat options
+- More resilient to network issues with automatic health checks
+
 ## [1.0.2] - 2025-11-03
 
 ### Added
@@ -51,6 +71,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Status Sync**: Real-time status updates for all subscribers
 - **Zero Dependencies**: Only peer dependency is React 16.8+
 
+[1.1.0]: https://github.com/sameerdewan/react-ws-kit/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/sameerdewan/react-ws-kit/compare/v1.0.0...v1.0.2
 [1.0.0]: https://github.com/sameerdewan/react-ws-kit/releases/tag/v1.0.0
 
