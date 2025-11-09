@@ -21,7 +21,7 @@ const defaultSerialize = <TOut,>(data: TOut): string => {
  * Normalize options with defaults
  */
 function normalizeOptions<TIn, TOut>(options?: Options<TIn, TOut>): NormalizedOptions<TIn, TOut> {
-  return {
+  const normalized: NormalizedOptions<TIn, TOut> = {
     autoConnect: options?.autoConnect ?? false,
     protocols: options?.protocols,
     autoReconnect: options?.autoReconnect ?? false,
@@ -33,6 +33,20 @@ function normalizeOptions<TIn, TOut>(options?: Options<TIn, TOut>): NormalizedOp
     serialize: options?.serialize ?? defaultSerialize,
     key: options?.key
   }
+
+  // Normalize heartbeat config if enabled
+  if (options?.heartbeat?.enabled) {
+    normalized.heartbeat = {
+      enabled: true,
+      interval: options.heartbeat.interval ?? 30000,
+      timeout: options.heartbeat.timeout ?? 5000,
+      pingMessage: options.heartbeat.pingMessage ?? ({ type: 'ping' } as TOut),
+      isPong: options.heartbeat.isPong ?? ((msg: any) => msg?.type === 'pong'),
+      reconnectOnFailure: options.heartbeat.reconnectOnFailure ?? true
+    }
+  }
+
+  return normalized
 }
 
 /**
@@ -41,6 +55,79 @@ function normalizeOptions<TIn, TOut>(options?: Options<TIn, TOut>): NormalizedOp
 let subscriberIdCounter = 0
 function generateSubscriberId(): string {
   return `sub-${++subscriberIdCounter}-${Date.now()}`
+}
+
+/**
+ * Start heartbeat for a socket instance
+ */
+function startHeartbeat<TIn, TOut>(instance: SocketInstance<TIn, TOut>) {
+  if (!instance.config.heartbeat?.enabled || !instance.socket) {
+    return
+  }
+
+  const { interval, timeout, pingMessage, reconnectOnFailure } = instance.config.heartbeat
+
+  const sendPing = () => {
+    if (instance.socket?.readyState !== WebSocket.OPEN) {
+      return
+    }
+
+    try {
+      // Generate ping message
+      const ping = typeof pingMessage === 'function' ? pingMessage() : pingMessage
+      const serialized = instance.config.serialize(ping)
+      instance.socket.send(serialized)
+
+      // Set timeout for pong
+      instance.heartbeatTimeout = setTimeout(() => {
+        console.warn('[useSocket] Heartbeat timeout - no pong received')
+        
+        if (reconnectOnFailure && instance.socket) {
+          // Close the socket to trigger reconnection
+          instance.socket.close()
+        }
+      }, timeout)
+    } catch (error) {
+      console.error('[useSocket] Heartbeat ping error:', error)
+    }
+  }
+
+  // Start interval
+  instance.heartbeatInterval = setInterval(sendPing, interval)
+  
+  // Send first ping immediately
+  sendPing()
+  
+  console.log(`[useSocket] Heartbeat started (interval: ${interval}ms, timeout: ${timeout}ms)`)
+}
+
+/**
+ * Stop heartbeat for a socket instance
+ */
+function stopHeartbeat<TIn, TOut>(instance: SocketInstance<TIn, TOut>) {
+  if (instance.heartbeatInterval) {
+    clearInterval(instance.heartbeatInterval)
+    instance.heartbeatInterval = null
+  }
+  
+  if (instance.heartbeatTimeout) {
+    clearTimeout(instance.heartbeatTimeout)
+    instance.heartbeatTimeout = null
+  }
+  
+  console.log('[useSocket] Heartbeat stopped')
+}
+
+/**
+ * Record pong received
+ */
+function recordPong<TIn, TOut>(instance: SocketInstance<TIn, TOut>) {
+  if (instance.heartbeatTimeout) {
+    clearTimeout(instance.heartbeatTimeout)
+    instance.heartbeatTimeout = null
+  }
+  
+  instance.lastPongTime = Date.now()
 }
 
 /**
@@ -192,12 +279,21 @@ export function useSocket<TIn = unknown, TOut = unknown>(
         
         // Flush queued messages
         flushQueue(instance)
+        
+        // Start heartbeat if enabled
+        startHeartbeat(instance)
       }
 
       ws.onmessage = (event: MessageEvent) => {
         try {
           // Parse once at the socket level
           const data = instance.config.parse(event)
+          
+          // Check if this is a pong message
+          if (instance.config.heartbeat?.enabled && instance.config.heartbeat.isPong(data)) {
+            recordPong(instance)
+            return // Don't broadcast pong messages to subscribers
+          }
           
           // Fan out to all connected subscribers
           instance.subscribers.forEach(sub => {
@@ -218,6 +314,10 @@ export function useSocket<TIn = unknown, TOut = unknown>(
 
       ws.onclose = () => {
         console.log('[useSocket] Disconnected:', socketKey)
+        
+        // Stop heartbeat
+        stopHeartbeat(instance)
+        
         instance.socket = null
         
         // If not killed, attempt reconnect
@@ -295,6 +395,9 @@ export function useSocket<TIn = unknown, TOut = unknown>(
         instance.reconnectTimer = null
       }
 
+      // Stop heartbeat
+      stopHeartbeat(instance)
+
       if (instance.socket) {
         instance.socket.close()
         instance.socket = null
@@ -356,6 +459,9 @@ export function useSocket<TIn = unknown, TOut = unknown>(
       clearTimeout(instance.reconnectTimer)
       instance.reconnectTimer = null
     }
+
+    // Stop heartbeat
+    stopHeartbeat(instance)
 
     // Close socket
     if (instance.socket) {

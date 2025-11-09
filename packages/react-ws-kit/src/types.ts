@@ -71,6 +71,47 @@ export interface Options<TIn = unknown, TOut = unknown> {
    * Use when parse/serialize functions are not referentially stable
    */
   key?: string
+
+  /**
+   * Heartbeat/ping configuration for connection health monitoring
+   */
+  heartbeat?: {
+    /**
+     * Enable automatic heartbeat/ping
+     * @default false
+     */
+    enabled?: boolean
+
+    /**
+     * Interval between ping messages in milliseconds
+     * @default 30000 (30 seconds)
+     */
+    interval?: number
+
+    /**
+     * Timeout waiting for pong response in milliseconds
+     * @default 5000 (5 seconds)
+     */
+    timeout?: number
+
+    /**
+     * Message to send as ping. Can be a static value or function.
+     * @default { type: 'ping' }
+     */
+    pingMessage?: TOut | (() => TOut)
+
+    /**
+     * Function to detect if an incoming message is a pong response
+     * @default (msg) => msg?.type === 'pong'
+     */
+    isPong?: (message: TIn) => boolean
+
+    /**
+     * Trigger automatic reconnection on heartbeat failure
+     * @default true
+     */
+    reconnectOnFailure?: boolean
+  }
 }
 
 /**
@@ -87,6 +128,14 @@ export interface NormalizedOptions<TIn = unknown, TOut = unknown> {
   parse: (event: MessageEvent) => TIn
   serialize: (data: TOut) => string
   key?: string
+  heartbeat?: {
+    enabled: boolean
+    interval: number
+    timeout: number
+    pingMessage: TOut | (() => TOut)
+    isPong: (message: TIn) => boolean
+    reconnectOnFailure: boolean
+  }
 }
 
 /**
@@ -114,6 +163,9 @@ export interface SocketInstance<TIn = unknown, TOut = unknown> {
   config: NormalizedOptions<TIn, TOut>
   killed: boolean
   reconnectTimer: ReturnType<typeof setTimeout> | null
+  heartbeatInterval?: ReturnType<typeof setInterval> | null
+  heartbeatTimeout?: ReturnType<typeof setTimeout> | null
+  lastPongTime?: number
 }
 
 /**

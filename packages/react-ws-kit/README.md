@@ -9,6 +9,7 @@ A production-quality, typed WebSocket hook for React with intelligent connection
 - **Per-Hook State**: Each hook maintains its own `allData` history and UI state
 - **Message Queuing**: Optional FIFO queue for offline message buffering
 - **Auto-Reconnect**: Configurable linear backoff strategy
+- **Heartbeat/Ping**: Built-in connection health monitoring with automatic ping/pong
 - **Kill Switch**: Programmatically close connections for all subscribers
 - **Zero Dependencies**: Only peer dependency is React 16.8+ (hooks support)
 
@@ -95,6 +96,18 @@ function TypedChat() {
 | `parse` | `(event: MessageEvent) => TIn` | `JSON.parse` | Custom message parser |
 | `serialize` | `(data: TOut) => string` | `JSON.stringify` | Custom message serializer |
 | `key` | `string` | `undefined` | Deterministic key for function identity |
+| `heartbeat` | `HeartbeatOptions` | `undefined` | Heartbeat/ping configuration (see below) |
+
+#### Heartbeat Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `enabled` | `boolean` | `false` | Enable automatic heartbeat/ping |
+| `interval` | `number` | `30000` | Interval between ping messages (ms) |
+| `timeout` | `number` | `5000` | Timeout waiting for pong response (ms) |
+| `pingMessage` | `TOut \| (() => TOut)` | `{ type: 'ping' }` | Message to send as ping |
+| `isPong` | `(message: TIn) => boolean` | `(msg) => msg?.type === 'pong'` | Function to detect pong response |
+| `reconnectOnFailure` | `boolean` | `true` | Trigger reconnection on heartbeat failure |
 
 #### Return Value
 
@@ -178,6 +191,57 @@ send({ message: 'World' })
 
 // On reconnect, both messages are sent in order
 ```
+
+## Heartbeat/Ping
+
+Enable automatic connection health monitoring with heartbeat/ping:
+
+```typescript
+const socket = useSocket('ws://api.example.com/chat', {
+  autoConnect: true,
+  autoReconnect: true,
+  heartbeat: {
+    enabled: true,
+    interval: 30000,      // Send ping every 30 seconds
+    timeout: 5000,        // Expect pong within 5 seconds
+    pingMessage: { type: 'ping' },
+    isPong: (msg) => msg.type === 'pong',
+    reconnectOnFailure: true  // Auto-reconnect if pong not received
+  }
+})
+```
+
+### Custom Ping/Pong Messages
+
+You can customize the ping message format and pong detection:
+
+```typescript
+const socket = useSocket('ws://api.example.com/chat', {
+  heartbeat: {
+    enabled: true,
+    interval: 20000,
+    // Dynamic ping message
+    pingMessage: () => ({ 
+      cmd: 'heartbeat', 
+      timestamp: Date.now() 
+    }),
+    // Custom pong detection
+    isPong: (msg) => msg.cmd === 'heartbeat_ack',
+  }
+})
+```
+
+### How It Works
+
+1. **Ping Interval**: When connected, a ping message is sent at the configured interval
+2. **Pong Detection**: When a message matching `isPong()` is received, the heartbeat timer is reset
+3. **Timeout**: If no pong is received within the timeout period, the connection is considered unhealthy
+4. **Reconnection**: If `reconnectOnFailure` is true, the socket will close and trigger auto-reconnect
+5. **No Broadcast**: Pong messages are filtered and not broadcast to `allData` or `lastReturnedData`
+
+### Native WebSocket Ping/Pong
+
+If your WebSocket server uses native WebSocket ping/pong frames (not application-level messages), you don't need to configure heartbeat - the browser handles it automatically!
 
 ## Testing
 
